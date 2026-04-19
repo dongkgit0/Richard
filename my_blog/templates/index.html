@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的博客</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px 10px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff9ec, #ffe8d8, #ffd9e0, #fcf0e3);
+            background-attachment: fixed;
+            background-color: #fff9ec;
+            background-repeat: no-repeat;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            padding: 20px 15px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        a {
+            text-decoration: none;
+            color: #222;
+        }
+        a:hover {
+            color: #ff6600;
+        }
+        .post-item {
+            margin: 18px 0;
+        }
+        /* 新增分页样式 */
+        .pagination {
+            margin: 20px 0 10px;
+            text-align: center;
+        }
+        .pagination a, .pagination span {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 0 4px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #222;
+        }
+        .pagination a:hover {
+            background-color: #ff6600;
+            color: white;
+            border-color: #ff6600;
+        }
+        .pagination .current {
+            background-color: #ff6600;
+            color: white;
+            border-color: #ff6600;
+        }
+        .pagination .disabled {
+            color: #999;
+            cursor: not-allowed;
+            border-color: #eee;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px 10px;
+                border-radius: 8px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .post-item {
+                margin: 12px 0;
+            }
+            .post-item h3 {
+                font-size: 16px;
+                margin: 0;
+            }
+            /* 移动端分页样式适配 */
+            .pagination a, .pagination span {
+                padding: 4px 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 我的博客</h1>
+        <p><a href="/new">✍️ 写新文章</a> &nbsp;</p>
+        <hr>
+
+        {% for post in posts %}
+        <div class="post-item">
+            <h3><a href="/post/{{ post.id }}">{{ post.title }}</a></h3>
+        </div>
+        {% else %}
+        <p>还没有文章，快去写第一篇吧！</p>
+        {% endfor %}
+
+        <!-- 新增分页控件 -->
+        {% if total > PER_PAGE %}
+        <div class="pagination">
+            <!-- 上一页 -->
+            {% if page > 1 %}
+            <a href="{{ url_for('index', page=page-1) }}">← 上一页</a>
+            {% else %}
+            <span class="disabled">← 上一页</span>
+            {% endif %}
+
+            <!-- 页码 -->
+            {% for p in range(1, total_pages+1) %}
+                {% if p == page %}
+                <span class="current">{{ p }}</span>
+                {% else %}
+                <a href="{{ url_for('index', page=p) }}">{{ p }}</a>
+                {% endif %}
+            {% endfor %}
+
+            <!-- 下一页 -->
+            {% if page < total_pages %}
+            <a href="{{ url_for('index', page=page+1) }}">下一页 →</a>
+            {% else %}
+            <span class="disabled">下一页 →</span>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

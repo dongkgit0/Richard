@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐣Celestium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        }
+        body {
+            display: flex;
+            width: 100vw;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .left-side {
+            flex: 1;
+            background-color: #1D9BF0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px;
+            color: white;
+        }
+        .left-item {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .icon {
+            font-size: 28px;
+        }
+        .right-side {
+            flex: 1;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px;
+            max-width: 600px;
+        }
+        .logo {
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #1D9BF0;
+            font-weight: 900;
+        }
+        .title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #0F1419;
+        }
+        .sub-title {
+            font-size: 15px;
+            color: #536471;
+            margin-bottom: 40px;
+        }
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 380px;
+        }
+        .form-input {
+            width: 100%;
+            height: 50px;
+            padding: 0 15px;
+            border: 1px solid #D7D9DC;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus {
+            border-color: #1D9BF0;
+        }
+        .btn-primary {
+            width: 100%;
+            height: 50px;
+            background-color: #1D9BF0;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #1A8CD8;
+        }
+
+        /* ===================== 完美居中分割线 ===================== */
+        .divider {
+            width: 100%;
+            max-width: 380px;
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .divider span.line {
+            flex: 1;
+            height: 1px;
+            background-color: #D7D9DC;
+        }
+        .divider .text {
+            color: #536471;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        /* ========================================================== */
+
+        .btn-secondary {
+            width: 100%;
+            height: 50px;
+            background-color: transparent;
+            color: #1D9BF0;
+            border: 1px solid #D7D9DC;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(29, 155, 240, 0.1);
+        }
+        .flash-msg {
+            color: #E02424;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        a {
+            color: #1D9BF0;
+            text-decoration: none;
+        }
+
+        /* 密码框容器 */
+        .pass-wrap {
+            position: relative;
+            width: 100%;
+        }
+        /* 查看密码按钮 */
+        .toggle-pass {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #1D9BF0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* ====================== 移动端适配 ====================== */
+        @media (max-width:768px){
+            body{flex-direction:column;}
+            .left-side{padding:40px 25px;}
+            .left-item{font-size:18px;margin:12px 0;}
+            .right-side{max-width:100%;padding:40px 25px;}
+            .logo{font-size:34px;}
+            .title{font-size:24px;}
+            .login-form,.divider{max-width:100%;}
+        }
+    </style>
+</head>
+<body>
+    <div class="left-side">
+        <div class="left-item">
+            <span class="icon">🔍</span>
+            从其心之所好，专而笃行之
+        </div>
+        <div class="left-item">
+            <span class="icon">👥</span>
+            侧耳以采巷陌之议，审听众人之所论
+        </div>
+        <div class="left-item">
+            <span class="icon">💬</span>
+            投身于清谈之列，相与酬答而论道
+        </div>
+    </div>
+
+    <div class="right-side">
+        <div class="logo">🐣天通</div>
+        <h1 class="title">创建你的账号</h1>
+        <p class="sub-title">今入天通，与共其盛</p>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="flash-msg">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" class="login-form">
+            <input type="text" class="form-input" name="username" placeholder="用户名" required>
+            <input type="email" class="form-input" name="email" placeholder="邮箱" required>
+
+            <!-- 密码输入框 + 查看按钮 -->
+            <div class="pass-wrap">
+                <input type="password" id="reg-pass" class="form-input" name="password" placeholder="密码" required>
+                <button type="button" class="toggle-pass" onclick="togglePass()">查看</button>
+            </div>
+
+            <button type="submit" class="btn-primary">注册</button>
+        </form>
+
+        <div class="divider">
+            <span class="line"></span>
+            <span class="text">or</span>
+            <span class="line"></span>
+        </div>
+
+        <div class="login-form">
+            <a href="{{ url_for('login') }}">
+                <button type="button" class="btn-secondary">已有账号？去登录</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- 密码查看功能 JS -->
+    <script>
+        function togglePass() {
+            let input = document.getElementById('reg-pass');
+            if (input.type === 'password') {
+                input.type = 'text';
+                event.target.innerText = '隐藏';
+            } else {
+                input.type = 'password';
+                event.target.innerText = '查看';
+            }
+        }
+    </script>
+</body>
+</html>

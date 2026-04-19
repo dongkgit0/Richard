@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑文章</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px 10px;
+            font-family: Arial, sans-serif;
+            /* 统一暖色系渐变背景（和首页一样） */
+            background: linear-gradient(135deg, #fff9ec, #ffe8d8, #ffd9e0, #fcf0e3);
+            background-attachment: fixed;
+            background-color: #fff9ec;
+            background-repeat: no-repeat;
+        }
+        .write-box {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            padding: 20px 15px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+        }
+        input:focus, textarea:focus {
+            border-color: #ff6600;
+            box-shadow: 0 0 5px rgba(255,102,0,0.2);
+        }
+        button {
+            padding: 10px 20px;
+            background: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #e55a00;
+        }
+        a {
+            color: #ff6600;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="write-box">
+        <h1>✍️ 编辑文章</h1>
+        <form method="POST">
+            <label>文章标题：</label><br>
+            <input type="text" name="title" value="{{ title }}" required><br><br>
+
+            <label>文章内容：</label><br>
+            <!-- 移除 content 文本域的 required 属性 -->
+            <textarea name="content" rows="15">{{ content }}</textarea><br><br>
+
+            <button type="submit">🚀 保存修改</button>
+        </form>
+        <br>
+        <a href="/">← 返回首页</a>
+    </div>
+</body>
+</html>

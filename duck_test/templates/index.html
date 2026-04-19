@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐥小黄鸭性格测试</title>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: "微软雅黑", sans-serif;}
+        body {background: #FDF6E9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;}
+        .container {background: white; padding: 40px; border-radius: 30px; box-shadow: 0 8px 30px rgba(255, 204, 128, 0.3); width: 100%; max-width: 600px; text-align: center;}
+        .title {font-size: 32px; color: #FF9999; margin-bottom: 10px;}
+        .sub-title {color: #999; margin-bottom: 30px; font-size: 16px;}
+        .duck-icon {font-size: 80px; margin: 20px 0;}
+        .question-box {margin: 30px 0; text-align: left;}
+        .question-title {font-size: 20px; color: #666; margin-bottom: 15px; font-weight: bold;}
+        .option {display: block; background: #FFF5E6; padding: 15px; margin: 10px 0; border-radius: 15px; cursor: pointer; transition: 0.3s; border: 2px solid transparent;}
+        .option:hover {border-color: #FFB3BA; background: #FFFBF5;}
+        .option input {margin-right: 10px;}
+        .submit-btn {background: #FF9999; color: white; border: none; padding: 15px 40px; font-size: 18px; border-radius: 20px; cursor: pointer; margin-top: 20px; transition: 0.3s;}
+        .submit-btn:hover {background: #FF6666; transform: scale(1.05);}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="duck-icon">🐥</div>
+        <h1 class="title">小黄鸭性格测试</h1>
+        <p class="sub-title">3道题，测出你是哪种可爱小黄鸭～</p>
+        <form method="POST" action="/result">
+            {% for q in questions %}
+            <div class="question-box">
+                <p class="question-title">{{ q.id }}. {{ q.title }}</p>
+                {% for opt in q.options %}
+                <label class="option">
+                    <input type="radio" name="q{{ q.id }}" value="{{ opt.type }}" required>
+                    {{ opt.text }}
+                </label>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">查看我的小黄鸭性格 🎉</button>
+        </form>
+    </div>
+</body>
+</html>
