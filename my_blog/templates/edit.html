@@ -9,7 +9,6 @@
             margin: 0;
             padding: 20px 10px;
             font-family: Arial, sans-serif;
-            /* 统一暖色系渐变背景（和首页一样） */
             background: linear-gradient(135deg, #fff9ec, #ffe8d8, #ffd9e0, #fcf0e3);
             background-attachment: fixed;
             background-color: #fff9ec;
@@ -55,7 +54,7 @@
             text-decoration: none;
         }
         a:hover {
-            text-decoration: underline;
+            text-decoration: none; /* 去掉下划线 */
         }
     </style>
 </head>
@@ -67,7 +66,7 @@
             <input type="text" name="title" value="{{ title }}" required><br><br>
 
             <label>文章内容：</label><br>
-            <!-- 移除 content 文本域的 required 属性 -->
+            <!-- 核心修复：直接渲染 {{ content }}，不做任何 |safe 或额外过滤 -->
             <textarea name="content" rows="15">{{ content }}</textarea><br><br>
 
             <button type="submit">🚀 保存修改</button>

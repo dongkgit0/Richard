@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,6 @@
             margin: 0;
             padding: 20px 10px;
             font-family: Arial, sans-serif;
-            /* 统一暖色系渐变背景（完全保留你原来的背景，一丝不改） */
             background: linear-gradient(135deg, #fff9ec, #ffe8d8, #ffd9e0, #fcf0e3);
             background-attachment: fixed;
             background-color: #fff9ec;
@@ -20,100 +19,62 @@
             width: 100%;
             margin: 0 auto;
             background: white;
-            padding: 20px 15px;
+            padding: 30px 25px;
             border-radius: 12px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             box-sizing: border-box;
         }
-        a {
-            color: #ff6600;
-            text-decoration: none;
+        .post-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0 0 12px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
         }
-        a:hover {
-            text-decoration: underline;
+        .post-content {
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.42;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            padding: 0;
         }
         .btn-group {
             display: flex;
-            flex-wrap: wrap;
             gap: 12px;
-            align-items: center;
-            margin-top: 20px;
+            margin-top: 30px;
         }
-        .edit-btn {
-            display: inline-block;
-            font-size: 14px;
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 15px;
             border: 1px solid #ff6600;
-            padding: 6px 12px;
-            border-radius: 4px;
             color: #ff6600;
-            text-decoration: none;
+            background: transparent;
         }
-        .edit-btn:hover{
-            background-color: #ff6600;
+        .btn-edit {
+            background: #ff6600;
             color: white;
-            text-decoration: none;
-        }
-        .delete-btn {
-            font-size: 14px;
-            padding: 6px 12px;
-            border-radius: 4px;
-            color: white;
-            background-color: #ff4444;
-            cursor: pointer;
-            outline: none;
             border: none;
         }
-        .delete-btn:hover {
-            background-color: #ff2222;
-        }
-
-        /* ===================== 新增：移动端专属适配（只改留白+布局，原有所有样式完全不动） ===================== */
-        @media (max-width: 768px) {
-            /* 1. 大幅缩减页面左右全局留白，解决你截图两侧空白太多的问题 */
-            body {
-                padding: 10px 5px;
-            }
-            /* 2. 内容卡片适配手机宽度，收紧内部内边距，更紧凑 */
-            .post-box {
-                padding: 15px 10px;
-                border-radius: 10px;
-            }
-            /* 3. 标题字体移动端适配，大小更和谐 */
-            h1 {
-                font-size: 24px;
-                margin-top: 5px;
-                margin-bottom: 10px;
-            }
-            /* 4. 文章内容字体、行高适配手机阅读 */
-            div[style*="white-space: pre-line"] {
-                font-size: 15px !important;
-                line-height: 1.55 !important;
-            }
-            /* 5. 移动端按钮组优化：小屏幕自动换行，间距舒适，不会挤在一起 */
-            .btn-group {
-                gap: 8px;
-                margin-top: 15px;
-            }
-            /* 按钮尺寸适配手机手指点击，大小不变，轻微缩小更精致 */
-            .edit-btn, .delete-btn {
-                font-size: 13px;
-                padding: 5px 10px;
-            }
+        .btn-delete {
+            background: red;
+            color: white;
+            border: none;
         }
     </style>
 </head>
 <body>
     <div class="post-box">
-        <h1>{{ title }}</h1>
-        <hr>
-        <div style="white-space: pre-line; font-size: 16px; line-height: 1.6;">{{ content }}</div>
-
+        <div class="post-title">{{ title }}</div>
+        <div class="post-content">{{ content }}</div>
         <div class="btn-group">
-            <a href="/">← 返回首页</a>
-            <a href="/edit/{{ post_id }}" class="edit-btn">✏️ 编辑本篇文章</a>
-            <form action="/delete/{{ post_id }}" method="POST" style="margin:0; padding:0; border:none;"
-                  onsubmit="return confirm('确定要删除这篇文章吗？删除后无法恢复！');">
-                <button type="submit" class="delete-btn">🗑️ 删除本篇文章</button>
+            <a href="/" class="btn">← 返回首页</a>
+            <a href="{{ url_for('edit_post', post_id=post_id) }}" class="btn btn-edit">✏️ 编辑本篇文章</a>
+            <form action="{{ url_for('delete_post', post_id=post_id) }}" method="post" style="margin:0">
+                <button class="btn btn-delete">🗑️ 删除本篇文章</button>
             </form>
         </div>
     </div>
